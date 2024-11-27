@@ -97,13 +97,16 @@ public class Anagram {
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
 		String randomword = "";
-		String stringSubstring = str;
+		String stringSubstring = str; 
 
+		
 		for (int i = 0; i < str.length(); i++){
+			// generate a random number (0 to the last index of stringSubstring)
 			double randomIndex = Math.floor(Math.random() * stringSubstring.length());
 			randomword += stringSubstring.charAt((int)randomIndex);
+			// deleting the letter in the (int)randomIndex place of stringSubstring:
 			stringSubstring = stringSubstring.substring(0,(int)randomIndex) + stringSubstring.substring((int)randomIndex+1);
-		}
+		} 
 		return randomword;
 	}
 }
