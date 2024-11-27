@@ -29,22 +29,84 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		String stringOneWithSpace = preProcess(str1);
+		String stringTwoWithSpace = preProcess(str2);
+
+		String stringOne = "";
+		String stringTwo = "";
+		
+		// checking if there are spaces in the stringOneWithSpace or stringOneWithSpace and skiping the space while adding the string to stringOne/stringTwo:
+		for (int i = 0; i < stringOneWithSpace.length(); i++){
+			if (stringOneWithSpace.charAt(i) != ' '){
+				stringOne += stringOneWithSpace.charAt(i);
+			}
+		}
+		for (int i = 0; i < stringTwoWithSpace.length(); i++){
+			if (stringTwoWithSpace.charAt(i) != ' '){
+				stringTwo += stringTwoWithSpace.charAt(i);
+			}
+		}
+		
+		// if the length in the two string dont match we can return false:
+		if (stringOne.length() != stringTwo.length()) {
+            return false;
+        }
+
+        // Iterate over each character of stringOne and check if it exists in stringTwo:
+        for (int i = 0; i < stringOne.length(); i++) {
+            char currentChar = stringOne.charAt(i);
+            int indexInStr2 = stringTwo.indexOf(currentChar);
+
+            // If the character doesn't exist in stringTwo, or no more such characters remain, return false
+            if (indexInStr2 == -1) {
+                return false;
+            }
+
+            // Remove the matched character from stringTwo by slicing:
+            stringTwo = stringTwo.substring(0, indexInStr2) + stringTwo.substring(indexInStr2 + 1);
+        }
+
+        // true if all characters were matched and removed correctly
+        return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
-	private static String preProcess(String str) {
-		// Replace the following statement with your code
-		return str;
+	public static String preProcess(String str) {
+
+		if (str == null || str.length() == 0) {
+			return ""; // Return empty string if input is null or empty
+		}
+	
+		String lowerCase = ""; // Initialize an empty string to store the result
+	
+		// Loop through each character of the input string:
+		for (int i = 0; i < str.length(); i++) {
+			// If the character is not a space, append it to the lowerCase string:
+			if ( str.charAt(i) != '!' && str.charAt(i) != '?') {
+					lowerCase += str.charAt(i);
+			}
+		}
+	
+		// Convert the result to lowercase and return it:
+		return lowerCase.toLowerCase();
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return str;
+		String randomword = "";
+		String stringSubstring = str; 
+
+		
+		for (int i = 0; i < str.length(); i++){
+			// generate a random number (0 to the last index of stringSubstring)
+			double randomIndex = Math.floor(Math.random() * stringSubstring.length());
+			randomword += stringSubstring.charAt((int)randomIndex);
+			// deleting the letter in the (int)randomIndex place of stringSubstring:
+			stringSubstring = stringSubstring.substring(0,(int)randomIndex) + stringSubstring.substring((int)randomIndex+1);
+		} 
+		return randomword;
 	}
 }
